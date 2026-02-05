@@ -18,10 +18,25 @@ nav a {
     margin: 0 1rem;
 }
 
-nav a.active {
+/* nav a.active {
     color: white;
     border-bottom: 2px solid white;
-}
+} */
+
+nav a {
+    color: #ccc;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+  }
+
+  /* This class is applied automatically by Angular when the route matches */
+  .active-link {
+    color: #ffffff !important;
+    font-weight: bold;
+    border-bottom: 2px solid #007bff;
+    background: rgba(255, 255, 255, 0.1);
+  }
 
 .main-content {
     padding: 2rem;

@@ -2,8 +2,13 @@
     <header class="app-header">
         <div class="brand">LMS 2026</div>
         <nav>
-            <a routerLink="/books" routerLinkActive="active">Books</a>
-            <a routerLink="/members" routerLinkActive="active">Members</a>
+            <a routerLink="/books" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: false }">
+                Books
+            </a>
+            
+            <a routerLink="/members" routerLinkActive="active-link">
+                Members
+            </a>
         </nav>
         <div class="user-info">
             <span>Welcome, {{ authService.currentUser()?.name }}</span>

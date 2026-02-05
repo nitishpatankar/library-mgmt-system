@@ -29,4 +29,9 @@ export const routes: Routes = [
       }
     ]
   },
+  { 
+    path: 'members', 
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/members/member-list/member-list').then(m => m.MemberList) 
+  }
 ];
