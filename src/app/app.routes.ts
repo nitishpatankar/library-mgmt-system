@@ -19,6 +19,14 @@ export const routes: Routes = [
         path: '', 
         loadComponent: () => import('./features/books/book-list/book-list').then(m => m.BookList)
       },
+      { 
+        path: 'new', 
+        loadComponent: () => import('./features/books/book-form/book-form').then(m => m.BookForm) 
+      },
+      { 
+        path: ':id', 
+        loadComponent: () => import('./features/books/book-form/book-form').then(m => m.BookForm) 
+      }
     ]
   },
 ];

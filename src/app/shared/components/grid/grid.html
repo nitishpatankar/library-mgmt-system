@@ -1,0 +1,61 @@
+<div class="table-container">
+    <div class="table-controls">
+        <input 
+            type="text" 
+            placeholder="Search..." 
+            [ngModel]="searchTerm()" 
+            (ngModelChange)="updateSearch($event)"
+            class="search-box"
+        />
+        <select [ngModel]="pageSize()" (ngModelChange)="updatePageSize($event)" class="page-size-select">
+            <option [value]="5">5 per page</option>
+            <option [value]="10">10 per page</option>
+            <option [value]="20">20 per page</option>
+        </select>
+    </div>
+
+    <!-- {{ data | json }} -->
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                @for (col of columns; track col.key) {
+                    <th>{{ col.header }}</th>
+                }
+                @if (actionsTemplate) { <th>Actions</th> }
+            </tr>
+        </thead>
+        <tbody>
+            @if (isLoading) {
+                <tr><td [attr.colspan]="columns.length + 1" class="loading">Loading data...</td></tr>
+            } @else if (paginatedData().length === 0) {
+                <tr><td [attr.colspan]="columns.length + 1" class="empty">No records found.</td></tr>
+            } @else {
+                @for (row of paginatedData(); track row) {
+                    <tr>
+                        @for (col of columns; track col.key) {
+                            <td>
+                                @if(col.type === 'date') { {{ row[col.key] | date }} }
+                                @else if (col.type === 'boolean') { 
+                                    {{ row[col.key] ? 'Yes' : 'No' }}
+                                }
+                                @else { {{ row[col.key] }} }
+                            </td>
+                        }
+                        @if (actionsTemplate) {
+                            <td>
+                                <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: row }"></ng-container>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <button [disabled]="currentPage() === 1" (click)="previusPage()">Previous</button>
+        <span>Page {{ currentPage() }} of {{ totalPages() }} ({{ filteredData().length }} items)</span>
+        <button [disabled]="currentPage() === totalPages()" (click)="nextPage()">Next</button>
+    </div>
+</div>

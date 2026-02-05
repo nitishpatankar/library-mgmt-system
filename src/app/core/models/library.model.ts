@@ -1,3 +1,8 @@
+export interface User {
+  email: string;
+  name: string;
+}
+
 export interface Book {
   id: string;
   title: string;
@@ -7,7 +12,16 @@ export interface Book {
   available: boolean;
 }
 
-export interface User {
-  email: string;
+export interface Member {
+  id: string;
   name: string;
+  email: string;
+  membershipSince: Date;
+  active: boolean;
+}
+
+export interface ColumnDef {
+  key: string;
+  header: string;
+  type?: 'text' | 'date' | 'boolean' | 'custom'; 
 }

@@ -1,0 +1,39 @@
+.app-header {
+    background: #333; 
+    color: white; 
+    padding: 1rem; 
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+nav a {
+    color: #ddd;
+    text-decoration: none;
+    margin: 0 1rem;
+}
+
+nav a.active {
+    color: white;
+    border-bottom: 2px solid white;
+}
+
+.main-content {
+    padding: 2rem;
+    background: #f4f6f8;
+    min-height: 100vh;
+}
+
+.user-info button {
+    margin-left: 10px;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}

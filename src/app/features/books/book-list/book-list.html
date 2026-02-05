@@ -1,1 +1,17 @@
-<p>book-list works!</p>
+<div class="page-header">
+    <h2>Books Library</h2>
+    <a routerLink="/books/new" class="btn-primary">Add New Book</a>
+</div>
+
+<app-grid 
+    [data]="books()" 
+    [columns]="tableCols" 
+    [isLoading]="loading()"
+>
+    <ng-template #actions let-book>
+    <span [appStatusHighlight]="book.available" style="margin-right: 10px">
+        {{ book.available ? 'Available' : 'Unavailable' }}
+    </span>
+    <button (click)="editBook(book.id)">Edit</button>
+    </ng-template>
+</app-grid>
