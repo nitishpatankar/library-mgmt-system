@@ -9,9 +9,9 @@
     [isLoading]="loading()"
 >
     <ng-template #actions let-book>
-    <span [appStatusHighlight]="book.available" style="margin-right: 10px">
-        {{ book.available ? 'Available' : 'Unavailable' }}
-    </span>
-    <button (click)="editBook(book.id)">Edit</button>
+        <span [appStatusHighlight]="book.available" style="margin-right: 10px">
+            {{ book.available ? 'Available' : 'Unavailable' }}
+        </span>
+        <button (click)="editBook(book.id)">Edit</button>
     </ng-template>
 </app-grid>

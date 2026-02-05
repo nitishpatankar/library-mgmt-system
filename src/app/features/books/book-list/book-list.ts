@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { BooksApi } from '../../../core/services/books-api';
 import { Router, RouterLink } from '@angular/router';
 import { Book, ColumnDef } from '../../../core/models/library.model';
@@ -12,7 +12,7 @@ import { Grid } from '../../../shared/components/grid/grid';
   templateUrl: './book-list.html',
   styleUrl: './book-list.css',
 })
-export class BookList {
+export class BookList implements OnInit {
   private api = inject(BooksApi);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
@@ -26,8 +26,6 @@ export class BookList {
     { key: 'category', header: 'Category' },
     { key: 'publishedYear', header: 'Year' }
   ];
-
-  constructor() { }
 
   ngOnInit() {
     // Auto-unsubscribe pattern using takeUntilDestroyed

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, ContentChild, contentChild, Input, input, signal, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, input, signal, TemplateRef } from '@angular/core';
 import { ColumnDef } from '../../../core/models/library.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,19 +11,13 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Grid {
-  @Input({ required: true }) data: any[] = [];
-  @Input({ required: true }) columns: ColumnDef[] = [];
-  @Input() isLoading = false;
+  data = input.required<any[]>();
+  columns = input.required<ColumnDef[]>();
+  isLoading = input<boolean>(false);
 
-  // data = input.required<any[]>();
-  // columns = input.required<ColumnDef[]>();
-  // isLoading = input<boolean>(false);
-
-  // To allow parent to inject specific action buttons (Edit/Delete)
   @ContentChild('actions') actionsTemplate!: TemplateRef<any>;
   // actionsTemplate = contentChild<TemplateRef<any>>('actions');
 
-  // Signals for local table state
   searchTerm = signal('');
   currentPage = signal(1);
   pageSize = signal(5);
@@ -31,7 +25,8 @@ export class Grid {
   // Derived State: Filtered Data
   filteredData = computed(() => {
     const term = this.searchTerm().toLowerCase();
-    const raw = this.data;
+    const raw = this.data();
+    console.log('Filtering data with term:', term, raw);
     if (!term) return raw;
     
     // Generic filtering on all string fields
@@ -42,7 +37,7 @@ export class Grid {
     );
   });
 
-  // Derived State: Pagination Logic
+  // Pagination Logic
   totalPages = computed(() => Math.ceil(this.filteredData().length / this.pageSize()));
   
   paginatedData = computed(() => {
@@ -54,7 +49,7 @@ export class Grid {
 
   updateSearch(term: string) {
     this.searchTerm.set(term);
-    this.currentPage.set(1); // Reset to page 1 on search
+    this.currentPage.set(1);
   }
 
   updatePageSize(size: number) {
@@ -62,7 +57,7 @@ export class Grid {
     this.currentPage.set(1);
   }
 
-  previusPage() {
+  previousPage() {
     if (this.currentPage() > 1)
       this.currentPage.update(p => p - 1);
   }
