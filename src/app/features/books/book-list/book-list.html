@@ -3,6 +3,7 @@
     <a routerLink="/books/new" class="btn-primary">Add New Book</a>
 </div>
 
+@defer (on timer(0ms); prefetch on idle) {
 <app-grid 
     [data]="books()" 
     [columns]="tableCols" 
@@ -15,3 +16,7 @@
         <button (click)="editBook(book.id)">Edit</button>
     </ng-template>
 </app-grid>
+}
+@placeholder {
+    <p>Loading books...</p>
+}

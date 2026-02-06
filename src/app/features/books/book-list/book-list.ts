@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { BooksApi } from '../../../core/services/books-api';
 import { Router, RouterLink } from '@angular/router';
 import { Book, ColumnDef } from '../../../core/models/library.model';
@@ -11,6 +11,7 @@ import { Grid } from '../../../shared/components/grid/grid';
   imports: [Grid, RouterLink, StatusHighlightDirective],
   templateUrl: './book-list.html',
   styleUrl: './book-list.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookList implements OnInit {
   private api = inject(BooksApi);

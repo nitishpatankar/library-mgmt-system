@@ -29,7 +29,7 @@
             } @else if (paginatedData().length === 0) {
                 <tr><td [attr.colspan]="columns.length + 1" class="empty">No records found.</td></tr>
             } @else {
-                @for (row of paginatedData(); track row) {
+                @for (row of paginatedData(); track row.id) {
                     <tr>
                         @for (col of columns(); track col.key) {
                             <td>

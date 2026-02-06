@@ -1,4 +1,6 @@
 <h2>Members Directory</h2>
+
+@defer (on timer(0ms)) {
 <app-grid 
     [data]="members()" 
     [columns]="tableCols" 
@@ -10,3 +12,7 @@
         </span>
     </ng-template>
 </app-grid>
+}
+@placeholder {
+    <p>Loading members...</p>
+}
