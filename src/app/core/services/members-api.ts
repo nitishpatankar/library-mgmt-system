@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Member } from '../models/library.model';
 import { delay, Observable, of } from 'rxjs';
+import { MemberList } from '../mocks/members';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MembersApi {
-  private members: Member[] = [
-    { id: '101', name: 'Alice Wonderland', email: 'alice@example.com', membershipSince: new Date('2022-01-15'), active: true },
-    { id: '102', name: 'Bob Builder', email: 'bob@example.com', membershipSince: new Date('2023-05-20'), active: false },
-  ];
+  private members: Member[] = MemberList;
 
   // Simulating network delay
   private DELAY = 500;

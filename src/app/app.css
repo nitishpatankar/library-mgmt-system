@@ -12,23 +12,23 @@
     font-size: 1.2rem;
 }
 
-nav a {
+/* nav a {
     color: #ddd;
     text-decoration: none;
     margin: 0 1rem;
-}
+} */
 
 /* nav a.active {
     color: white;
     border-bottom: 2px solid white;
 } */
 
-nav a {
+/* nav a {
     color: #ccc;
     text-decoration: none;
     padding: 10px 15px;
     transition: all 0.3s ease;
-  }
+  } */
 
   /* This class is applied automatically by Angular when the route matches */
   .active-link {

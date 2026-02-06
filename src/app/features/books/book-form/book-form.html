@@ -4,22 +4,44 @@
     <form [formGroup]="bookForm" (ngSubmit)="save()">
     <div class="form-group">
         <label>Title</label>
-        <input formControlName="title" type="text" />
+        <input formControlName="title" type="text" placeholder="Enter book title" />
+        @if (bookForm.get('title')?.touched && bookForm.get('title')?.errors?.['required']) {
+            <small class="error">Please enter the book title.</small>
+        }
+        @if (bookForm.get('title')?.errors?.['minlength']) {
+            <small class="error">Title is too short (min 3 chars).</small>
+        }
     </div>
 
     <div class="form-group">
         <label>Author</label>
-        <input formControlName="author" type="text" />
+        <input formControlName="author" type="text" placeholder="Enter book author" />
+        @if (bookForm.get('author')?.touched && bookForm.get('author')?.errors?.['required']) {
+            <small class="error">Please enter the book author.</small>
+        }
+        @if (bookForm.get('author')?.errors?.['minlength']) {
+            <small class="error">Author is too short (min 3 chars).</small>
+        }
     </div>
 
     <div class="form-group">
         <label>Category</label>
-        <input formControlName="category" type="text" />
+        <input formControlName="category" type="text" placeholder="Enter book category" />
+        @if (bookForm.get('category')?.touched && bookForm.get('category')?.errors?.['required']) {
+            <small class="error">Please enter the book category.</small>
+        }
+        @if (bookForm.get('category')?.errors?.['minlength']) {
+            <small class="error">Category is too short (min 3 chars).</small>
+        }
+        
     </div>
 
     <div class="form-group">
         <label>Published Year</label>
-        <input formControlName="publishedYear" type="number" />
+        <input formControlName="publishedYear" type="number" placeholder="Enter published year" />
+        @if (bookForm.get('publishedYear')?.touched && bookForm.get('publishedYear')?.errors?.['required']) {
+            <small class="error">Please enter the published year.</small>
+        }
         @if(bookForm.get('publishedYear')?.errors?.['pattern']) {
             <span class="error">Must be 4 digits</span>
         }

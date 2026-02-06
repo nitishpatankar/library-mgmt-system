@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+nav a {
+    color: #ddd;
+    text-decoration: none;
+    margin: 0 1rem;
+}
+
+nav a {
+    color: #ccc;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+  }
