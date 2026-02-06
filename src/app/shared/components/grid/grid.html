@@ -20,7 +20,7 @@
                 @for (col of columns(); track col.key) {
                     <th>{{ col.header }}</th>
                 }
-                @if (actionsTemplate) { <th>Actions</th> }
+                @if (actionsTemplate()) { <th>Actions</th> }
             </tr>
         </thead>
         <tbody>
@@ -40,9 +40,9 @@
                                 @else { {{ row[col.key] }} }
                             </td>
                         }
-                        @if (actionsTemplate) {
+                        @if (actionsTemplate()) {
                             <td>
-                                <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: row }"></ng-container>
+                                <ng-container *ngTemplateOutlet="actionsTemplate(); context: { $implicit: row }"></ng-container>
                             </td>
                         }
                     </tr>

@@ -11,8 +11,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './member-list.css',
 })
 export class MemberList {
-  private api = inject(MembersApi);
-  private destroyRef = inject(DestroyRef);
+  private _memberService = inject(MembersApi);
+  private _destroyRef = inject(DestroyRef);
 
   members = signal<Member[]>([]);
   loading = signal(true);
@@ -24,9 +24,9 @@ export class MemberList {
   ];
 
   ngOnInit() {
-    this.api.getMembers()
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe(data => {
+    this._memberService.getMembers()
+    .pipe(takeUntilDestroyed(this._destroyRef))
+    .subscribe((data: Member[]) => {
       this.members.set(data);
       this.loading.set(false);
     });

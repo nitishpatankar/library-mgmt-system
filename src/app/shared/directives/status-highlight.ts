@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, Input, OnChanges, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appStatusHighlight]',
@@ -7,17 +7,18 @@ import { Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/cor
 export class StatusHighlightDirective implements OnChanges {
   @Input('appStatusHighlight') isAvailable: boolean | undefined;
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  private _el = inject(ElementRef);
+  private _renderer = inject(Renderer2);
 
   ngOnChanges() {
     // Applies green background if available, red/pink if not
     const color = this.isAvailable ? '#d4edda' : '#f8d7da';
     const textColor = this.isAvailable ? 'green' : 'red';
     
-    this.renderer.setStyle(this.el.nativeElement, 'backgroundColor', color);
-    this.renderer.setStyle(this.el.nativeElement, 'color', textColor);
-    this.renderer.setStyle(this.el.nativeElement, 'padding', '4px 8px');
-    this.renderer.setStyle(this.el.nativeElement, 'borderRadius', '4px');
-    this.renderer.setStyle(this.el.nativeElement, 'fontWeight', 'bold');
+    this._renderer.setStyle(this._el.nativeElement, 'backgroundColor', color);
+    this._renderer.setStyle(this._el.nativeElement, 'color', textColor);
+    this._renderer.setStyle(this._el.nativeElement, 'padding', '4px 8px');
+    this._renderer.setStyle(this._el.nativeElement, 'borderRadius', '4px');
+    this._renderer.setStyle(this._el.nativeElement, 'fontWeight', 'bold');
   }
 }

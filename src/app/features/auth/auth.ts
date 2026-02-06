@@ -9,24 +9,24 @@ import { AuthService } from '../../core/services/auth';
   styleUrl: './auth.css',
 })
 export class Auth {
-private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private _fb = inject(FormBuilder);
+  private _authService = inject(AuthService);
 
-  loginForm = this.fb.group({
+  _loginForm = this._fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required]
   });
 
-  errorMessage = signal('');
+  errorMessage = signal<string>('');
 
   onSubmit() {
-    if (this.loginForm.invalid) return;
+    if (this._loginForm.invalid) return;
 
-    const { email, password } = this.loginForm.value;
+    const { email, password } = this._loginForm.value;
 
     // Hardcoded check
     if (email === 'admin@demo.com' && password === 'admin123') {
-      this.authService.login(email);
+      this._authService.login(email);
     } else {
       this.errorMessage.set('Invalid credentials. Try with valid credentials.');
     }

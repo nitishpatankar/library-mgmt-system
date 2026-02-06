@@ -12,17 +12,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './book-form.css',
 })
 export class BookForm {
-  private fb = inject(FormBuilder);
-  private api = inject(BooksApi);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
-  private destroyRef = inject(DestroyRef);
+  private _fb = inject(FormBuilder);
+  private _bookService = inject(BooksApi);
+  private _route = inject(ActivatedRoute);
+  private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   isEditMode = signal(false);
   isSaving = signal(false);
   bookId: string | null = null;
 
-  bookForm = this.fb.group({
+  bookForm = this._fb.group({
     title: ['', Validators.required],
     author: ['', Validators.required],
     category: ['', Validators.required],
@@ -31,14 +31,14 @@ export class BookForm {
   });
 
   ngOnInit() {
-    this.bookId = this.route.snapshot.paramMap.get('id');
+    this.bookId = this._route.snapshot.paramMap.get('id');
 
     if (this.bookId) {
       this.isEditMode.set(true);
       this.bookForm.disable(); // Disable while loading
 
-      this.api.getBookById(this.bookId)
-      .pipe(takeUntilDestroyed(this.destroyRef)) // Safe subscription in ngOnInit
+      this._bookService.getBookById(this.bookId)
+      .pipe(takeUntilDestroyed(this._destroyRef)) // auto-unsubscribe on destroy
       .subscribe(book => {
         if (book) {
           this.bookForm.patchValue(book);
@@ -54,11 +54,11 @@ export class BookForm {
     this.isSaving.set(true);
     const formVal = this.bookForm.value as any;
 
-    const request = this.isEditMode() && this.bookId ? this.api.updateBook(this.bookId, formVal) : this.api.addBook(formVal);
+    const request = this.isEditMode() && this.bookId ? this._bookService.updateBook(this.bookId, formVal) : this._bookService.addBook(formVal);
 
-    request.pipe(takeUntilDestroyed(this.destroyRef))
+    request.pipe(takeUntilDestroyed(this._destroyRef))
     .subscribe(() => {
-      this.router.navigate(['/books']);
+      this._router.navigate(['/books']);
     });
   }
 }

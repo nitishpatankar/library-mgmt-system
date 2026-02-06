@@ -14,9 +14,9 @@ import { Grid } from '../../../shared/components/grid/grid';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookList implements OnInit {
-  private api = inject(BooksApi);
-  private router = inject(Router);
-  private destroyRef = inject(DestroyRef);
+  private _bookService = inject(BooksApi);
+  private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   books = signal<Book[]>([]);
   loading = signal(true);
@@ -30,11 +30,10 @@ export class BookList implements OnInit {
 
   ngOnInit() {
     // Auto-unsubscribe pattern using takeUntilDestroyed
-    this.api.getBooks()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    this._bookService.getBooks()
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (books: Book[]) => {
-          console.log('Fetched books:', books);
           this.books.set(books);
           this.loading.set(false);
         }
@@ -42,6 +41,6 @@ export class BookList implements OnInit {
   }
 
   editBook(id: string) {
-    this.router.navigate(['/books', id]);
+    this._router.navigate(['/books', id]);
   }
 }

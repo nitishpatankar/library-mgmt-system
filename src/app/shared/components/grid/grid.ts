@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, ContentChild, input, signal, TemplateRef } from '@angular/core';
-import { ColumnDef } from '../../../core/models/library.model';
+import { ChangeDetectionStrategy, Component, computed, contentChild, ContentChild, input, signal, TemplateRef } from '@angular/core';
+import { Book, ColumnDef } from '../../../core/models/library.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -15,24 +15,26 @@ export class Grid {
   columns = input.required<ColumnDef[]>();
   isLoading = input<boolean>(false);
 
-  @ContentChild('actions') actionsTemplate!: TemplateRef<any>;
-  // actionsTemplate = contentChild<TemplateRef<any>>('actions');
+  actionsTemplate = contentChild<TemplateRef<any>>('actions');
 
   searchTerm = signal('');
   currentPage = signal(1);
   pageSize = signal(5);
 
-  // Derived State: Filtered Data
+  /**
+   * Filters the input data based on the search term. It checks specified columns for matches and returns the filtered array.
+   * If the search term is empty, it returns the original data.
+   */
   filteredData = computed(() => {
     const term = this.searchTerm().toLowerCase();
     const raw = this.data();
-    console.log('Filtering data with term:', term, raw);
+    const searchColumns: (keyof Book)[] = ['title', 'author'];
+
     if (!term) return raw;
-    
-    // Generic filtering on all string fields
+
     return raw.filter(item => 
-      Object.values(item).some(val => 
-        String(val).toLowerCase().includes(term)
+      searchColumns.some(key => 
+        String(item[key]).toLowerCase().includes(term)
       )
     );
   });
@@ -43,7 +45,6 @@ export class Grid {
   paginatedData = computed(() => {
     const start = (this.currentPage() - 1) * this.pageSize();
     const end = start + this.pageSize();
-    console.log('Paginating data:', { start, end, total: this.filteredData() });
     return this.filteredData().slice(start, end);
   });
 

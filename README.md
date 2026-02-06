@@ -1,59 +1,90 @@
-# LibraryMgmtSystem
+# Library Management System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.15.
+This project is a Library Management System built to demonstrate the latest features of ```Angular 20```, including Signal-based state management, advanced template control flow, and high-performance rendering strategies.
 
-## Development server
+## Project Objectives
+This project serves as a technical demonstration of:
+### Reactive State Management:
+- Utilizing the Signals API for fine-grained reactivity.
+### Performance Optimization:
+- Strict enforcement of OnPush change detection.
+### Modern Syntax:
+- Full implementation of the new Angular control flow (```@if```, ```@for```).
+### Clean Architecture:
+- Separation of concerns between Core, Features, and Shared layers.
 
-To start a local development server, run:
+## Access Credentials
+To access the protected dashboard, use the following hardcoded credentials:
+#### Email: admin@demo.com
+#### Password: admin123
 
-```bash
+## Architecture & Technical Stack
+### Signals-First Reactivity
+- The application eschews traditional lifecycle-heavy state management in favor of Signals. By using ```signal```, ```computed```, and ```effect```, the application achieves high performance with minimal re-renders.
+### State & Data Flow
+- Core Service: LibraryService acts as the single source of truth, managing an in-memory collection of books and members with simulated network latency.
+- Derived State: Client-side pagination and filtering are handled via computed signals, ensuring that filtered lists are only recalculated when necessary.
+### Safe Subscription Patterns
+- Memory safety is handled using the modern ```takeUntilDestroyed``` pattern.
+```
+// Example from BookListComponent
+this._bookService.getBooks()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
+    next: (books: Book[]) => {
+        this.books.set(books);
+        this.loading.set(false);
+    }
+});
+```
+### Routing & Performance
+- Lazy Loading: All feature routes (```/login```, ```/books```, ```/members```) are lazy-loaded to optimize initial bundle size.
+- Auth Guard: A functional guard protects internal routes, redirecting unauthenticated traffic to the login screen.
+
+## Project Structure
+```
+src/app/
+├── core/               # Singleton services, Auth Guards, Mock API logic
+|   ├── guards          # Auth guards
+|   ├── mocks           # Mock the data
+|   ├── models          # Model
+|   ├── services        # Services
+├── features/           # Lazy-loaded feature modules
+│   ├── auth/           # Login form and authentication logic
+│   ├── books/          # Book list, search, and CRUD forms
+│   └── members/        # Read-only member directory
+├── shared/             # Reusable UI components, Directives, and Pipes
+│   ├── directives/     # Status highlighting directive
+│   └── pipes/          # Text truncation pipe
+└── app.routes.ts       # Centralized route configuration
+```
+
+## Features Breakdown
+| Feature | Implementation Detail |
+|----------|----------|
+| Search/Filter  | Real-time filtering using ```computed``` signals.  |
+| Pagination  | Client-side logic with configurable page sizes (5, 10, 20).  |
+| Forms  | Reactive Forms with strict validation (e.g., 4-digit year regex).  |
+| Custom UI  | ```appStatusHighlight``` directive for indicating unavailable inventory.  |
+
+## Getting Started
+### Prerequisites
+- Node.js: v20 or higher
+- Angular CLI: v20.0.0+
+
+### Installation
+- Clone the repository
+```
+git clone https://github.com/nitishpatankar/library-mgmt-system.git
+cd library-mgmt-system
+```
+### Install Dependencies
+```
+npm install
+```
+### Run Development Server
+```
 ng serve
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### View the App 
+- Navigate to ```http://localhost:4200```

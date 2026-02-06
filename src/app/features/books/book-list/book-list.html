@@ -7,8 +7,8 @@
 <app-grid 
     [data]="books()" 
     [columns]="tableCols" 
-    [isLoading]="loading()"
->
+    [isLoading]="loading()">
+
     <ng-template #actions let-book>
         <span [appStatusHighlight]="book.available" style="margin-right: 10px">
             {{ book.available ? 'Available' : 'Unavailable' }}
