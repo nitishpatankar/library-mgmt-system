@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BooksApi } from '../../../core/services/books-api';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './book-form.html',
   styleUrl: './book-form.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookForm {
   private _fb = inject(FormBuilder);

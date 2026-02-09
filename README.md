@@ -88,3 +88,10 @@ ng serve
 ```
 ### View the App 
 - Navigate to ```http://localhost:4200```
+
+## Screen captures ::
+### Book List (Landing page)
+![alt text](image.png)
+
+### Member List
+![alt text](image-1.png)

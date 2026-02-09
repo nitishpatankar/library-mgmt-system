@@ -9,15 +9,12 @@ import { MemberList } from '../mocks/members';
 export class MembersApi {
   private members: Member[] = MemberList;
 
-  // Simulating network delay
-  private DELAY = 500;
-
   /**
    * GET /members
    * 
    * @returns all members
    */
   getMembers(): Observable<Member[]> {
-    return of([...this.members]).pipe(delay(this.DELAY));
+    return of([...this.members]);
   }
 }

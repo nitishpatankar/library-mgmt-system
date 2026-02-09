@@ -1,17 +1,17 @@
 <h2>Members Directory</h2>
 
 @defer (on timer(0ms)) {
-<app-grid 
-    [data]="members()" 
-    [columns]="tableCols" 
-    [isLoading]="loading()">
+    <app-grid 
+        [data]="members()" 
+        [columns]="tableCols" 
+        [isLoading]="loading()">
 
-    <ng-template #actions let-member>
-        <span [style.color]="member.active ? 'green' : 'gray'">
-        {{ member.active ? 'Active' : 'Inactive' }}
-        </span>
-    </ng-template>
-</app-grid>
+        <ng-template #actions let-member>
+            <span [style.color]="member.active ? 'green' : 'gray'">
+                {{ member.active ? 'Active' : 'Inactive' }}
+            </span>
+        </ng-template>
+    </app-grid>
 }
 @placeholder {
     <p>Loading members...</p>
