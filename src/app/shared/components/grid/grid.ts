@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, contentChild, ContentChild, input, signal, TemplateRef } from '@angular/core';
-import { Book, ColumnDef } from '../../../core/models/library.model';
+import { Book, ColumnDef, Member } from '../../../core/models/library.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -28,7 +28,7 @@ export class Grid {
   filteredData = computed(() => {
     const term = this.searchTerm().toLowerCase();
     const raw = this.data();
-    const searchColumns: (keyof Book)[] = ['title', 'author'];
+    const searchColumns: (keyof Book | keyof Member )[] = ['title', 'author', 'name', 'email'];
 
     if (!term) return raw;
 

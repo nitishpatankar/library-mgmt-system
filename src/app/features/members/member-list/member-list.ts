@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { Grid } from '../../../shared/components/grid/grid';
 import { MembersApi } from '../../../core/services/members-api';
 import { ColumnDef, Member } from '../../../core/models/library.model';
@@ -11,7 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './member-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MemberList {
+export class MemberList implements OnInit {
   private _memberService = inject(MembersApi);
   private _destroyRef = inject(DestroyRef);
 
